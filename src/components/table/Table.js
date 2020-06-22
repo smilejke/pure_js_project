@@ -76,12 +76,13 @@ export class Table extends ExcelComponent {
   }
 
   onMousedown(event) {
-    if (shouldResize(event)) this.resizeTable(event);
-    else if (isCell(event)) {
+    if (shouldResize(event)) {
+      this.resizeTable(event);
+    } else if (isCell(event)) {
       const $target = $(event.target);
       if (event.shiftKey) {
         const $cells = matrix($target, this.selection.current).map((id) =>
-          this.$root.find(`[data-id = "${id}"]`)
+          this.$root.find(`[data-id ="${id}"]`)
         );
         this.selection.selectGroup($cells);
       } else {
@@ -101,6 +102,7 @@ export class Table extends ExcelComponent {
     ];
 
     const { key } = event;
+
     if (keys.includes(key) && !event.shiftKey) {
       event.preventDefault();
       const id = this.selection.current.id(true);
